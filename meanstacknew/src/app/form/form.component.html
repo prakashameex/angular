@@ -1,0 +1,32 @@
+<form class="example-form">
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="First Name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Last Name">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Phone Number">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-select placeholder="Gender">
+      <mat-option value="option">Male</mat-option>
+      <mat-option value="option">Female</mat-option>
+   </mat-select>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+  <input matInput [matDatepicker]="picker" placeholder="Date of Birth">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<mat-checkbox class="example-full-width">Active</mat-checkbox>
+<br>
+<br>
+<div  class="example-full-width">
+<button  mat-raised-button>Cancel</button>
+<button  mat-raised-button>Save</button>
+</div>
+</form>
