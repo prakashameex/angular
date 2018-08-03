@@ -7,6 +7,9 @@ import 'rxjs/add/operator/map';
 import{task} from './form/form';  
 @Injectable()
 export class FormserviceService {
+    
+         headers = new Headers();
+         arr_service:any;
   constructor(private http: Http) {
     console.log('Task Service Initialized...');
   }
@@ -16,22 +19,24 @@ export class FormserviceService {
     return this.http.get('http://localhost:4201/api/tasks').map(Response=>Response.json())
         }
 
-  // addTask(newTask) {
-  //   var headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-  //   return this.http.post('/api/task', JSON.stringify(newTask), { headers: headers })
-  //     .map((response) => response['_body'] as task[]);
-  // }
+  addTask(newTask) {
+    console.log('service value',newTask)
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:4201/api/tasks', JSON.stringify(newTask), { headers: this.headers }).map(Response=>Response.json());
+  }
 
-  // deleteTask(id) {
-  //   return this.http.delete('/api/task/' + id)
-  //     .map((response) => response['_body'] as task[]);
-  // }
+  delete(id) {
+console.log('dele:http://localhost:4201/api/task/'+id)
+    return this.http.delete('http://localhost:4201/api/task/'+id, { headers: this.headers }).map(Response=>Response.json()); 
+    
+  }
 
-  // updateStatus(task) {
-  //   var headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-  //   return this.http.put('/api/task/' + task._id, JSON.stringify(task), { headers: headers })
-  //     .map((response) => response['_body'] as task[]);
-  // }
+  tableedit(id) {
+ return this.http.get('http://localhost:4201/api/task/'+id).map(Response=>Response.json());  
+}
+update(up_value,id){
+  console.log('id',id)
+  console.log('update cal',up_value)
+ return this.http.put('http://localhost:4201/api/task/'+id, up_value, { headers: this.headers }).map(Response=>Response.json());    
+}
 }

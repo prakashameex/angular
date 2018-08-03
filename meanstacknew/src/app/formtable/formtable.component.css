@@ -18,3 +18,13 @@
   overflow: auto;
   max-height: 500px;
 }
+.filter {
+    display: flex;
+    max-width: 700px;
+}
+.filter mat-form-field{
+max-width: 500px;
+}
+.filter button{
+margin-left: 30px;
+}

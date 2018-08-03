@@ -1,67 +1,85 @@
-import {Component, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { FormserviceService } from '../formservice.service'
+import { task } from '../form/form'
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-formtable',
   templateUrl: './formtable.component.html',
-  styleUrls: ['./formtable.component.css']
+  styleUrls: ['./formtable.component.css'],
+  providers: [FormserviceService]
 })
-export class FormtableComponent{
-   displayedColumns = ['id', 'name', 'progress', 'color'];
+export class FormtableComponent implements OnInit, AfterViewInit {
+
+  arr: Array<any>;
+  displayedColumns = ['_id', 'fname', 'lname', 'phoneno', 'gender', 'dob', 'edit', 'Delete'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-l
-  constructor() {
-    // Create 100 users
-    const users: UserData[] = [];
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
+  constructor(private taskService: FormserviceService, private router: Router) {
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.taskService.getTasks()
+      .subscribe(tasks => {
+        this.arr = tasks;
+        this.dataSource = new MatTableDataSource(this.arr);
+        console.log(this.arr);
+      });
+
   }
+  ngOnInit() {
+    console.log('sort', this.sort)
 
+
+  }
   /**
    * Set the paginator and sort after the view init since this component will
    * be able to query its view for the initialized paginator and sort.
    */
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }, 1000);
+
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  }
+  add(){
+    this.router.navigate(['/form']);
+  }
+  edit(id: any) {
+    
+    console.log('current values', id)
+    
+    this.taskService.tableedit(id)
+ this.router.navigate(['/form',{id}]);
+  }
+  delete(id: any) {
+
+    this.taskService.delete(id).subscribe((res: Response) => {
+      alert("Deleted Sucessfully");
+       this.taskService.getTasks()
+      .subscribe(tasks => {
+        this.arr = tasks;
+        this.dataSource = new MatTableDataSource(this.arr);
+        console.log(this.arr);
+      });
+    });
+
   }
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
-}
-
-/** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
 export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
+  _id: string;
+  fname: string;
+  lname: string;
+  phoneno: number;
+  gender: string;
+  dob: Date;
 }

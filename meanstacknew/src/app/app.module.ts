@@ -11,6 +11,7 @@ import { FormComponent } from './form/form.component';
 import { FormtableComponent } from './formtable/formtable.component';
 import {FormserviceService} from './formservice.service'
 import { HttpModule }    from '@angular/http';
+import { AppRoutingModule } from './/app-routing.module';
  
 
 @NgModule({
@@ -20,7 +21,7 @@ import { HttpModule }    from '@angular/http';
     FormtableComponent
   ],
   imports: [
-   MatDatepickerModule, BrowserModule,FormsModule,MatInputModule,BrowserAnimationsModule,MatFormFieldModule,MatButtonModule,MatSelectModule,MatNativeDateModule,MatCheckboxModule,MatTableModule,MatPaginatorModule, MatSortModule,HttpModule
+   MatDatepickerModule, BrowserModule,FormsModule,MatInputModule,BrowserAnimationsModule,MatFormFieldModule,MatButtonModule,MatSelectModule,MatNativeDateModule,MatCheckboxModule,MatTableModule,MatPaginatorModule, MatSortModule,HttpModule, AppRoutingModule
   ],
   providers: [FormserviceService],
   bootstrap: [AppComponent]
