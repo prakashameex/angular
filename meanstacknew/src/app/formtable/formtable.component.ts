@@ -1,23 +1,25 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog} from '@angular/material';
 import { FormserviceService } from '../formservice.service'
 import { task } from '../form/form'
-import { Router } from '@angular/router'
-@Component({
+
+import {Router} from '@angular/router'
+@Component({  
   selector: 'app-formtable',
   templateUrl: './formtable.component.html',
-  styleUrls: ['./formtable.component.css'],
-  providers: [FormserviceService]
+  styleUrls: ['./formtable.component.css']
 })
 export class FormtableComponent implements OnInit, AfterViewInit {
-
+  animal: string;
+  name: string;
+  delid:any;
   arr: Array<any>;
   displayedColumns = ['_id', 'fname', 'lname', 'phoneno', 'gender', 'dob', 'edit', 'Delete'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private taskService: FormserviceService, private router: Router) {
+  constructor(private taskService: FormserviceService, private router: Router,public dialog: MatDialog) {
 
     this.taskService.getTasks()
       .subscribe(tasks => {
@@ -26,6 +28,14 @@ export class FormtableComponent implements OnInit, AfterViewInit {
         console.log(this.arr);
       });
 
+  }
+  openDialog(delid:any) {
+    this.delid=delid
+    const dialogRef = this.dialog.open(DialogContent);
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log(`Dialog result: `);
+    });
   }
   ngOnInit() {
     console.log('sort', this.sort)
@@ -74,7 +84,6 @@ export class FormtableComponent implements OnInit, AfterViewInit {
 }
 
 
-
 export interface UserData {
   _id: string;
   fname: string;
@@ -83,3 +92,9 @@ export interface UserData {
   gender: string;
   dob: Date;
 }
+
+@Component({
+  selector: 'DialogContent',
+  templateUrl: './DialogContent.html',
+})
+export class DialogContent {}
