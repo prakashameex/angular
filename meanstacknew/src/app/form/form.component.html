@@ -1,4 +1,4 @@
- <a mat-stroked-button routerLink="/">Back</a>
+ <a mat-stroked-button routerLink="/" style="margin-bottom: 20px">Back</a>
 
 <form class="example-form" #userlogin="ngForm" >
 
@@ -10,7 +10,7 @@
     <input [(ngModel)]='lname' name ='lname' matInput placeholder="Last Name" class="form-control" required>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input [(ngModel)]='phoneno' name='phoneno' matInput placeholder="Phone Number" class="form-control" required>
+    <input [(ngModel)]='phoneno' name='phoneno' matInput placeholder="Phone Number" class="form-control"   maxlength="10" pattern="[0-9]+" minlength="10" required>
   </mat-form-field>
   <mat-form-field class="example-full-width">
     <mat-select placeholder="Gender" [(ngModel)]='gender' name='gender' class="form-control" required>
@@ -29,7 +29,9 @@
   <br>
   <div class="example-full-width">
     <!--<button type="button" mat-raised-button>Cancel</button>-->
-    <button mat-raised-button color='primary'  [disabled]='!userlogin.valid' (click)="onClickSubmit(userlogin.value); userlogin.resetForm()">Submit</button>
-        <button mat-raised-button color='primary'  [disabled]='!userlogin.valid' (click)="update(userlogin.value); userlogin.resetForm()">Update</button>
+    <button mat-raised-button color='primary'  [disabled]='!userlogin.valid' (click)="onClickSubmit(userlogin.value); userlogin.resetForm()" *ngIf="arr_service==null" style="margin-right: 10px">save</button>
+    <button mat-raised-button color='primary'  [disabled]='!userlogin.valid' type="reset" *ngIf="arr_service==null">Cancel</button>
+        <button mat-raised-button color='primary'  [disabled]='!userlogin.valid' (click)="update(userlogin.value); userlogin.resetForm()" *ngIf="arr_service!=null" >Update  </button>
   </div>
 </form>
+<!-- <p>{{arr_service._id}}</p> -->

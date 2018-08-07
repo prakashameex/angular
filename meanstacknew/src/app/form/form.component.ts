@@ -26,7 +26,7 @@ export class FormComponent implements OnInit {
     this.taskService.tableedit(route.snapshot.params.id).subscribe(task => {
       this.arr_service = task;
       console.log('edited value', this.arr_service)
-      if (this.arr_service) {
+      if (this.arr_service!=null) {
         console.log(this.arr_service)
         this.fname = this.arr_service.fname;
         this.lname = this.arr_service.lname;
@@ -41,8 +41,9 @@ export class FormComponent implements OnInit {
   update(value1: any) {
 
     this.taskService.update(value1, this.route.snapshot.params.id).subscribe(task => {
-      alert('Update successfully')
+
     });
+    this.router.navigate(['/']);
   }
   onClickSubmit(value: any) {
     if (!value) { return; }

@@ -31,11 +31,12 @@ export class FormtableComponent implements OnInit, AfterViewInit {
   }
   openDialog(delid:any) {
     this.delid=delid
-    const dialogRef = this.dialog.open(DialogContent);
+    console.log(this.delid)
+  //   const dialogRef = this.dialog.open(DialogContent);
 
-    dialogRef.afterClosed().subscribe(() => {
-      console.log(`Dialog result: `);
-    });
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     console.log(`Dialog result: `);
+  //   });
   }
   ngOnInit() {
     console.log('sort', this.sort)
@@ -69,16 +70,24 @@ export class FormtableComponent implements OnInit, AfterViewInit {
  this.router.navigate(['/form',{id}]);
   }
   delete(id: any) {
+    const dialogRef = this.dialog.open(DialogContent);
 
+    dialogRef.afterClosed().subscribe(res=> {
+     console.log(`Dialog result: `);
+   if(res==true){
+console.log('resu',res)
     this.taskService.delete(id).subscribe((res: Response) => {
-      alert("Deleted Sucessfully");
+      // alert("Deleted Sucessfully");
        this.taskService.getTasks()
       .subscribe(tasks => {
         this.arr = tasks;
         this.dataSource = new MatTableDataSource(this.arr);
         console.log(this.arr);
+      
       });
     });
+  }
+  });
 
   }
 }
