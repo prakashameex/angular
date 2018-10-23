@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-
+import { Component, HostListener, Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
+declare var jQuery: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,54 +13,32 @@ export class AppComponent {
   sum = 100;
   throttle = 50;
   scrollDistance = 1;
-  scrollUpDistance = 2;
+  scrollUpDistance = 1;
   direction = '';
   modalOpen = false;
-  sample="Lorem Ipsum is simply dummy"
-  constructor() {
-    this.appendItems(0, this.sum);
+
+
+
+  constructor(private router: Router, @Inject(DOCUMENT) private document: Document) {
 
   }
-  
-  addItems(startIndex, endIndex, _method) {
-    for (let i = 0; i < this.sum; ++i) {
-      this.array[_method]([i, ' ', this.generateWord()].join(''));
+  // trigger lazy loading once we reach end of the page
+  // need to set 80% height
+
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+
+    var scrollHeight = jQuery(document).height();
+    var scrollPosition = jQuery(window).height() + jQuery(window).scrollTop();
+    if((scrollHeight - scrollPosition) / scrollHeight === 0 && (this.document.location.pathname == '/'))  {
+      this.router.navigate(['/lazy1/load-parent']);
+      console.log('parent call',this.document.location.pathname)
     }
-  }
-  
-  appendItems(startIndex, endIndex) {
-    this.addItems(startIndex, endIndex, 'push');
-  }
-  
-  prependItems(startIndex, endIndex) {
-    this.addItems(startIndex, endIndex, 'unshift');
-  }
-
-  onScrollDown () {
-    console.log('scrolled down!!');
-
-    // add another 20 items
-    const start = this.sum;
-    this.sum += 20;
-    this.appendItems(start, this.sum);
+    else if ((scrollHeight - scrollPosition) / scrollHeight === 0 && (this.document.location.pathname == '/lazy1/load-parent')) {
+      console.log('child call',this.document.location.pathname)
+      this.router.navigate(['/lazy1/load-child']);     
+    }
     
-    this.direction = 'down'
   }
-  
-  onUp(e) {
-    console.log('scrolled up!', e);
-    const start = this.sum;
-    this.sum += 20;
-    this.prependItems(start, this.sum);
-  
-    this.direction = 'up';
-  }
-  generateWord() {
-    return this.sample;
-   
-  }
-
-  toggleModal() {
-    this.modalOpen = !this.modalOpen;
-  }
+  // trigger lazy loading once we reach end of the page
 }

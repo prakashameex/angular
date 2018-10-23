@@ -1,0 +1,11 @@
+/* div{
+    width: 100%;
+    position: fixed;
+    height: 1000px;
+    background: pink;
+    overflow:scroll
+} */
+.search-results {
+    height:100%;
+    /* overflow-y: scroll; */
+  }

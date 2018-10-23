@@ -4,7 +4,9 @@ import { LazyParentComponent } from './lazy-parent/lazy-parent.component';
 import { LazyChildComponent } from './lazy-child/lazy-child.component';
 import {Routes,RouterModule} from '@angular/router'
 const routes: Routes = [
-  { path: 'load-me', component: LazyParentComponent }
+  { path: 'load-parent', component: LazyParentComponent },
+  { path: 'load-child', component: LazyChildComponent }
+
 ];
 @NgModule({
   imports: [
