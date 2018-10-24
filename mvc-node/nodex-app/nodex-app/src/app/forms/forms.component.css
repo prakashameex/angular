@@ -1,0 +1,26 @@
+.example-button {
+    margin-top: 8px;
+  }
+  
+.example-tooltip-red {
+    background: #b71c1c;
+    font-size: 14px;
+    
+  }
+.mat-error
+{
+    font-size: 15px;
+}
+mat-icon
+{
+    font-size: 18px;
+}
+.mat-raised-button
+{
+    margin: 0px 20px  !important ;
+}
+form{
+    width: 25%;
+    margin: 0 auto;
+   /* text-align: center */
+}

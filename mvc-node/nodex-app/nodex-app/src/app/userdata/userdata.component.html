@@ -1,0 +1,77 @@
+
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="firstname">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.firstname}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Lats Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.lastname}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dob">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> D.O.B </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.dob | date : prefFormat }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="gender">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Gender </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.gender}} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="actionsColumn">
+    <mat-header-cell *matHeaderCellDef >
+      Actions
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/edit/{{row._id}}">Edit</button>
+        <button mat-menu-item  (click)="openDialog(row)" >Delete</button>
+      </mat-menu>
+
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" ></mat-paginator>
+
+<button mat-fab color="primary" class="btn" routerLink="/add">
+  <mat-icon>add</mat-icon>
+</button>
+<!-- <button  mat-fab color="primary" class="btn"  routerLink="/edit/1">edit</button>  -->
+
+<!-- showFirstLastButtons -->
+<!-- <ol>
+  <li>
+    <mat-form-field>
+      <input matInput [(ngModel)]="name" placeholder="What's your name?">
+    </mat-form-field>
+  </li>
+  <li>
+    <button mat-raised-button (click)="openDialog()">Pick one</button>
+  </li>
+  <li *ngIf="animal">
+    You chose: <i>{{animal}}</i>
+  </li>
+</ol> -->

@@ -1,0 +1,100 @@
+<mat-toolbar  color="primary">
+  <mat-toolbar-row>
+    <span *ngIf="router.url === '/login'">LOGIN</span>
+    <span *ngIf="router.url === '/register'">SIGN UP</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<mat-sidenav-container class="example-container spacetop">
+
+<form *ngIf="router.url === '/login'"  [formGroup]="loginForm" (ngSubmit)="onloginFormSubmit()">
+
+  
+  <label>Username: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="username" name="username" type="text" placeholder="Username">
+    <mat-error *ngIf="loginForm.controls.username.invalid">Invalid First Name 
+
+      <mat-icon  mat-mini-fab color="warn" matTooltip="It Should Contain Characters Only"
+      matTooltipClass="example-tooltip-red"
+      aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon>
+  </mat-error>
+  </mat-form-field>
+  <br>
+  <br> 
+  <br>
+  <label>Password: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="password" name="password" type="text" placeholder="Password">
+    <mat-error *ngIf="loginForm.controls.password.invalid">Invalid First Name 
+
+      <mat-icon  mat-mini-fab color="warn" matTooltip="It Should Contain Characters Only"
+      matTooltipClass="example-tooltip-red"
+      aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon>
+  </mat-error>
+  </mat-form-field>
+  <br>
+  <br> 
+
+  
+  <br> 
+  <button mat-raised-button color="primary"  [disabled]="!loginForm.valid" >Login</button>
+
+
+
+  <button mat-raised-button color="accent" routerLink="/register" >Sign Up</button>
+ 
+
+</form>
+
+
+<form *ngIf="router.url === '/register'" [formGroup]="registerForm" (ngSubmit)="onregisterFormSubmit()">
+
+  
+  <label>Username: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="uname" name="uname" type="text" placeholder="Username">
+    <mat-error *ngIf="registerForm.controls.uname.invalid">Invalid First Name 
+
+      <mat-icon  mat-mini-fab color="warn" matTooltip="It Should Contain Characters Only"
+      matTooltipClass="example-tooltip-red"
+      aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon>
+  </mat-error>
+  </mat-form-field>
+  <br>
+  <br> 
+  <br>
+  <label>Password: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="pass" name="pass" type="text" placeholder="Password">
+    <mat-error *ngIf="registerForm.controls.pass.invalid">Invalid First Name 
+
+      <mat-icon  mat-mini-fab color="warn" matTooltip="It Should Contain Characters Only"
+      matTooltipClass="example-tooltip-red"
+      aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon>
+  </mat-error>
+  </mat-form-field>
+  <br>
+  <br> 
+  <br> 
+  <label>Confirm Password: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="cpass" name="cpass" type="text" placeholder="Confirm Password">
+    <mat-error *ngIf="registerForm.controls.cpass.invalid">Invalid First Name 
+
+      <mat-icon  mat-mini-fab color="warn" matTooltip="It Should Contain Characters Only"
+      matTooltipClass="example-tooltip-red"
+      aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon>
+  </mat-error>
+  </mat-form-field>
+  <br>
+  <br> 
+  <button mat-raised-button color="primary"   [disabled]="!registerForm.valid">Register</button>
+
+
+
+  <button mat-raised-button color="accent" routerLink="/login" >Back to Login</button>
+</form>
+
+</mat-sidenav-container>

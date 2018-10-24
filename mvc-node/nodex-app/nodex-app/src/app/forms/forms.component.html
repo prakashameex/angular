@@ -1,0 +1,92 @@
+
+
+<mat-toolbar  color="primary">
+    <mat-toolbar-row>
+      <span *ngIf="router.url === '/add'">CREATE USER FORM</span>
+      <span *ngIf="router.url != '/add'">UPDATE FORM</span>
+    </mat-toolbar-row>
+ </mat-toolbar>
+    <mat-sidenav-container class="example-container spacetop">
+<!-- <h1 *ngIf="router.url === '/add'">REGISTER FORM</h1>
+<h1 *ngIf="router.url != '/add'">UPDATE FORM</h1> -->
+<form [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+
+  
+  <label>First Name: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="firstname" name="firstname" type="text" placeholder="First Name">
+    <mat-error *ngIf="userForm.controls.firstname.invalid">Invalid First Name 
+
+        <mat-icon  mat-mini-fab color="warn" matTooltip="It Should Contain Characters Only"
+        matTooltipClass="example-tooltip-red"
+        aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br> 
+  <br>
+  <label>Last Name: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="lastname" name="lastname" type="text" placeholder="Last Name">
+    <mat-error *ngIf="userForm.controls.lastname.invalid">Invalid Last Name 
+        <mat-icon  mat-mini-fab color="warn" matTooltip="It Should Contain Characters Only"
+        matTooltipClass="example-tooltip-red"
+        aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon></mat-error>
+  </mat-form-field>
+  <br>
+  <br> 
+
+  
+  <br>  <label>DOB: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput name="DOB" formControlName="dob" [matDatepicker]="picker" placeholder="DD/MM/YYYY">
+    <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <br> 
+  <br> 
+  <br> <label>Email: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="email" name="email" placeholder="Email Address">
+    <mat-error *ngIf="userForm.controls.email.invalid">Enter Valid Email ID 
+        <mat-icon  mat-mini-fab color="warn" matTooltip="example@domain.com"
+        matTooltipClass="example-tooltip-red"
+        aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon>
+    </mat-error>
+  </mat-form-field>
+  <br> 
+  <br> 
+  <br> <label>Phone: </label>&nbsp;&nbsp;
+  <mat-form-field>
+    <input matInput formControlName="phone" name="phone" placeholder="Phone Number">
+    <mat-error *ngIf="userForm.controls.phone.invalid">Invalid Phone Number
+        <mat-icon  mat-mini-fab color="warn" matTooltip="It Should be length of 10 & Numerics only"
+        matTooltipClass="example-tooltip-red"
+        aria-label="Button that shows a red tooltip"  class="example-button">help</mat-icon>
+    </mat-error>
+  </mat-form-field>
+  
+  <br>
+  <br> 
+  <br>  <label>Gender: </label>&nbsp;&nbsp;
+
+  <mat-radio-group formControlName="gender" name="gender"  >
+    <mat-radio-button *ngFor="let gender of genders" [value]="gender" [checked]="gender === 'Others'" >
+     {{gender}} &nbsp;
+    </mat-radio-button>
+  </mat-radio-group>
+  <br>
+
+  <br>
+  <br> 
+  <button mat-raised-button color="primary" *ngIf="router.url === '/add'" [disabled]="!userForm.valid">SUBMIT</button>
+  
+  <button mat-raised-button color="primary" *ngIf="router.url != '/add'" [disabled]="!userForm.valid">UPDATE</button>
+
+
+  <button mat-raised-button color="accent" routerLink="/" >GO BACK</button>
+ 
+
+</form>
+</mat-sidenav-container>
+<!-- [matTooltipPosition]="right" -->

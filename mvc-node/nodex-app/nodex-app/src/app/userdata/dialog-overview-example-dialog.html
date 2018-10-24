@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Delete Confrimation !</h1>
+<div mat-dialog-content>
+  <p>Are You Sure? You Want to Delete this data Completely?</p>
+  <table *ngFor="let data of data">
+     
+        <tr><td>FirstName</td>  <td>{{data.firstname}}</td></tr>
+        <tr> <td>LastName</td>  <td>{{data.lastname}}</td></tr>
+        <tr> <td>Gender</td>  <td>{{data.gender}}</td></tr>
+        <tr> <td>DOB </td>  <td>{{data.dob | date:preFormat}}</td></tr>
+        <tr> <td>Email</td>  <td>{{data.email}}</td></tr>
+        <tr> <td>Phone</td>  <td>{{data.phone}}</td></tr>
+    
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button  [mat-dialog-close]="data._id" cdkFocusInitial>Yes</button>
+  </table>
+  <!-- <mat-form-field>
+    <input matInput  [(ngModel)]="data.firstname">
+  </mat-form-field> -->
+</div>
+<!-- <div mat-dialog-actions>
+  
+</div> -->
+<!-- <mat-table [dataSource]="data"  class="mat-elevation-z8">
+
+        <ng-container matColumnDef="firstname">
+          <mat-header-cell *matHeaderCellDef > First Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.firstname}} </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="lastname">
+          <mat-header-cell *matHeaderCellDef > Lats Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.lastname}} </mat-cell>
+        </ng-container>
+</mat-table> -->
+<!-- [mat-dialog-close]="deleteUser(data._id);"  -->
